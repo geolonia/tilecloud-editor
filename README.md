@@ -1,5 +1,7 @@
 # tilecloud-editor
 
+DEMO: https://tilecloud.github.io/tilecloud-editor
+
 ## development
 
 ```shell
