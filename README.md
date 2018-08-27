@@ -9,10 +9,8 @@ $ yarn
 $ yarn start # or yarn test
 ```
 
-## build and serve
+## deploy
 
 ```shell
-$ npm run build
-$ cd docs
-$ npx http-server -o -c-1
+$ npm run deploy
 ```
