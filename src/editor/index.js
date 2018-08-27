@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { createActions as createStyleActions } from '../reducers/style'
 import PropTypes from 'prop-types'
 
 import WaterFill from './partials/water-fill'
@@ -10,7 +12,7 @@ export class Editor extends React.Component {
    */
   static propTypes = {
     style: PropTypes.any.isRequired,
-    onStyleChange: PropTypes.func.isRequired,
+    setWaterFillColor: PropTypes.func.isRequired,
   }
 
   /**
@@ -23,41 +25,51 @@ export class Editor extends React.Component {
     return true
   }
 
-  onChangeWaterColor = e => {
-    const nextWaterFillColor = e.target.value
-    const nextLayers = this.props.style.layers.map(layer => {
-      if (layer.id === 'water') {
-        const nextPaint = { ...layer.paint, 'fill-color': nextWaterFillColor }
-        return { ...layer, paint: nextPaint }
-      } else {
-        return layer
-      }
-    })
-
-    const nextStyle = {
-      ...this.props.style,
-      layers: nextLayers,
-    }
-    this.props.onStyleChange(nextStyle)
-  }
-
   /**
    * render
    * @return {ReactElement|null|false} render a React element.
    */
   render() {
-    const { style } = this.props
+    const { style, setWaterFillColor } = this.props
     const waterLayer = style.layers.find(layer => layer.id === 'water')
 
     return (
       <form>
         <WaterFill
           value={ waterLayer.paint['fill-color'] }
-          onChange={ this.onChangeWaterColor }
+          onChange={ setWaterFillColor }
         />
       </form>
     )
   }
 }
 
-export default Editor
+/**
+ * map state to props
+ * @param  {object} state    state tree
+ * @param  {object} ownProps own props
+ * @return {object}          state props
+ */
+const mapStateToProps = state => {
+  return {
+    style: state.style.data,
+  }
+}
+
+/**
+ * map dispatch to props
+ * @param  {function} dispatch dispatcher
+ * @param  {object}   ownProps own props
+ * @return {object}            dispatch props
+ */
+const mapDispatchToProps = dispatch => {
+  return {
+    setWaterFillColor: e =>
+      dispatch(createStyleActions.setWaterFillColor(e.target.value)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Editor)
