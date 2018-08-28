@@ -2,6 +2,7 @@
   "name": "tilecloud-editor",
   "version": "0.1.0",
   "dependencies": {
+    "@material-ui/core": "^3.0.0",
     "immutability-helper": "^2.7.1",
     "mapbox-gl": "^0.48.0",
     "react": "^16.4.2",
