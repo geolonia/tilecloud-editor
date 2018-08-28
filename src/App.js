@@ -5,8 +5,8 @@ import logo from './logo.svg'
 import './App.css'
 
 // components
-import Map from './map'
-import Editor from './editor'
+import Map from './components/map'
+import Editor from './components/editor'
 
 class App extends Component {
   /**

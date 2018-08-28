@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createActions as createStyleActions } from '../reducers/style'
+import { createActions as createStyleActions } from '../../reducers/style'
 import PropTypes from 'prop-types'
 
 import { ControlForms } from './styled'
