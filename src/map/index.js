@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createActions as createMapActions } from '../reducers/map'
 import PropTypes from 'prop-types'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -11,9 +10,16 @@ export class Map extends React.Component {
    * @type {object}
    */
   static propTypes = {
-    viewport: PropTypes.any.isRequired,
     style: PropTypes.any.isRequired, // TODO: Flow or custom type checker is needed
-    setViewport: PropTypes.func.isRequired,
+    onViewportChange: PropTypes.func,
+  }
+
+  /**
+   * defaultProps
+   * @type {object}
+   */
+  static defaultProps = {
+    onViewportChange: x => x, // noop,
   }
 
   /**
@@ -33,14 +39,17 @@ export class Map extends React.Component {
    * @return {void}
    */
   componentDidMount() {
-    const { style, viewport } = this.props
+    const { style } = this.props
     const map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: { ...style, ...viewport },
+      style: { ...style },
       localIdeographFontFamily: ['sans-serif'],
       attributionControl: true,
       hash: true,
     })
+
+    // TODO: set viewport change handlers here
+
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ ...this.state, map })
   }
@@ -87,24 +96,8 @@ export class Map extends React.Component {
  */
 const mapStateToProps = state => {
   return {
-    viewport: state.map.viewport,
     style: state.style.data,
   }
 }
 
-/**
- * map dispatch to props
- * @param  {function} dispatch dispatcher
- * @param  {object}   ownProps own props
- * @return {object}            dispatch props
- */
-const mapDispatchToProps = dispatch => {
-  return {
-    setViewport: viewport => dispatch(createMapActions.setViewport(viewport)),
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Map)
+export default connect(mapStateToProps)(Map)

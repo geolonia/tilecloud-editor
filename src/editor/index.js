@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { createActions as createStyleActions } from '../reducers/style'
 import PropTypes from 'prop-types'
 
+import { ControlForms } from './styled'
 import WaterFill from './partials/water-fill'
+import Download from './partials/download'
 
 export class Editor extends React.Component {
   /**
@@ -34,12 +36,13 @@ export class Editor extends React.Component {
     const waterLayer = style.layers.find(layer => layer.id === 'water')
 
     return (
-      <form>
+      <ControlForms>
         <WaterFill
           value={ waterLayer.paint['fill-color'] }
           onChange={ setWaterFillColor }
         />
-      </form>
+        <Download />
+      </ControlForms>
     )
   }
 }

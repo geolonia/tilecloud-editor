@@ -3,7 +3,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 /**
  * Reducers
  */
-import mapReducer from './reducers/map'
 import styleReducer from './reducers/style'
 
 /**
@@ -18,7 +17,6 @@ const middlewares = []
  */
 const store = createStore(
   combineReducers({
-    map: mapReducer,
     style: styleReducer,
   }),
   applyMiddleware(...middlewares),

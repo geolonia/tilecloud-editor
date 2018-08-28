@@ -1,21 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Label } from '../styled'
+
+const ID = 'editor_water-color-fill'
 
 export const WaterFill = props => {
   const { value, onChange } = props
   return (
     <div>
-      <label htmlFor="editor_water-color-fill">{'Water Color Fill'}</label>
-      <input
-        type="color"
-        id={ 'editor_water-color-fill' }
-        value={ value }
-        onChange={ onChange }
-      />
+      <Label htmlFor={ ID }>{'Water Color Fill'}</Label>
+      <input type={ 'color' } id={ ID } value={ value } onChange={ onChange } />
     </div>
   )
 }
 
+/**
+ * prop types
+ * @type {object}
+ */
 WaterFill.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
