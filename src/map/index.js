@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createActions as createMapActions } from '../reducers/map'
 import PropTypes from 'prop-types'
-import ReactMapGL from 'react-map-gl'
+import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 export class Map extends React.Component {
@@ -14,6 +14,44 @@ export class Map extends React.Component {
     viewport: PropTypes.any.isRequired,
     style: PropTypes.any.isRequired, // TODO: Flow or custom type checker is needed
     setViewport: PropTypes.func.isRequired,
+  }
+
+  /**
+   * constructor
+   * @param  {object} props React props.
+   * @return {void}
+   */
+  constructor(props) {
+    super(props)
+    this.state = {
+      map: void 0,
+    }
+  }
+
+  /**
+   * componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    const { style, viewport } = this.props
+    const map = new mapboxgl.Map({
+      container: this.mapContainer,
+      style: { ...style, ...viewport },
+      localIdeographFontFamily: ['sans-serif'],
+      attributionControl: true,
+      hash: true,
+    })
+    // eslint-disable-next-line react/no-did-mount-set-state
+    this.setState({ ...this.state, map })
+  }
+
+  /**
+   * componentWillReceiveProps
+   * @param  {object} nextProps React props.
+   * @return {void}
+   */
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.state.map && this.state.map.setStyle(nextProps.style)
   }
 
   /**
@@ -31,14 +69,11 @@ export class Map extends React.Component {
    * @return {ReactElement|null|false} render a React element.
    */
   render() {
-    const { viewport, style, setViewport } = this.props
     return (
-      <ReactMapGL
-        mapStyle={ style }
-        width={ 800 }
-        height={ 800 }
-        { ...viewport }
-        onViewportChange={ setViewport }
+      <div
+        className={ 'map-container' }
+        style={ { width: '100%', height: 400 } }
+        ref={ el => (this.mapContainer = el) }
       />
     )
   }

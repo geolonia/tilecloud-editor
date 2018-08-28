@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "dependencies": {
     "immutability-helper": "^2.7.1",
+    "mapbox-gl": "^0.48.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-map-gl": "^3.3.4",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
     "redux": "^4.0.0"

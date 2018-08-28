@@ -31,12 +31,8 @@ class App extends Component {
             <h1 className="App-title">{'Welcome to React'}</h1>
           </header>
           <main className={ 'main' }>
-            <div className={ 'editor' }>
-              <Editor />
-            </div>
-            <div className={ 'map-view' }>
-              <Map />
-            </div>
+            <Editor />
+            <Map />
           </main>
           <p className="App-intro">
             {'To get started, edit '}
